@@ -1,2 +1,7 @@
 __pycache__/
 .vscode
+
+data/
+.idea/
+saferl_kit/.idea/
+saferl_kit/data/

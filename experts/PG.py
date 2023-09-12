@@ -17,6 +17,7 @@ class PG(nn.Module):
             nn.Linear(in_features = 64 , out_features = self.n_actions)
         )
         self.optimizer = torch.optim.Adam(self.model.parameters(), 1e-3)
+        
     def forward(self, x):
         logits = self.model(x)
         return logits
@@ -33,10 +34,14 @@ class PG(nn.Module):
         s = env.reset()
         q_t = 1.0
         for t in range(t_max):
+            # print("state", s)
+            # input()
             action_probs = self.predict_probs(np.array([s]))[0]
             a = np.random.choice(self.n_actions,  p = action_probs)
+            # print("env.step(a)", env.step(a))
             new_s, r, done, info = env.step(a)
             
+            # print("done: ", done)
             q_t *= action_probs[a]
 
             states.append(s)
